@@ -1,0 +1,86 @@
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 07</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <h1>Ejercicio 07: Menú de opciones</h1>
+
+  <div class="controls">
+    <select id="opcionesSelect" aria-label="Seleccionar opción">
+      <option value="">-- Seleccioná una opción --</option>
+      <option value="INS">INS (Insertar)</option>
+      <option value="DEL">DEL (Eliminar)</option>
+      <option value="UPD">UPD (Actualizar)</option>
+      <option value="LST">LST (Listar)</option>
+      <option value="END">END (Terminar)</option>
+    </select>
+
+    <button id="btnEnviar" type="button">Enviar</button>
+  </div>
+
+  <div id="resultado" class="resultado" role="status" aria-live="polite"></div>
+<script>
+
+const select = document.getElementById("opcionesSelect");
+const btn = document.getElementById("btnEnviar");
+const resultado = document.getElementById("resultado");
+
+
+function resetResultado() {
+  resultado.className = "resultado";
+}
+
+
+function procesarOpcion(opcion) {
+  resetResultado();
+
+  switch (opcion) {
+    case "INS":
+      resultado.innerText = " Seleccionó INSERTAR.";
+      resultado.classList.add("ok");
+      break;
+    case "DEL":
+      resultado.innerText = " Seleccionó ELIMINAR.";
+      resultado.classList.add("error");
+      break;
+    case "UPD":
+      resultado.innerText = " Seleccionó ACTUALIZAR.";
+      resultado.classList.add("info");
+      break;
+    case "LST":
+      resultado.innerText = " Seleccionó LISTAR.";
+      resultado.classList.add("info");
+      break;
+    case "END":
+      resultado.innerText = " Seleccionó TERMINAR.";
+      resultado.classList.add("error");
+      break;
+    default:
+      resultado.innerText = " Opción no válida.";
+      resultado.classList.add("error");
+  }
+}
+
+
+btn.addEventListener("click", () => {
+  const opcion = select.value;
+  if (!opcion) {
+    resetResultado();
+    resultado.innerText = "❗ Por favor seleccioná una opción antes de enviar.";
+    resultado.classList.add("error");
+    return;
+  }
+  procesarOpcion(opcion);
+});
+
+
+select.addEventListener("change", () => {
+  if (select.value) procesarOpcion(select.value);
+});
+
+</script>
+</body>
+</html>
